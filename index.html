@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLK Esport — CS2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06080f;
+  --bg2:#0b0e18;
+  --bg3:#0f1220;
+  --bg4:#141828;
+  --surface:#111520;
+  --accent:#00e5cc;
+  --accent2:#00bfac;
+  --accent-dim:rgba(0,229,204,0.12);
+  --accent-glow:rgba(0,229,204,0.25);
+  --red:#ff4d6d;
+  --green:#00e5cc;
+  --blue:#4d9eff;
+  --orange:#ff9a3c;
+  --text:#e8ecf8;
+  --text2:#7a82a8;
+  --text3:#3d4260;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+
+/* ═══ LANGUAGE SWITCHER ═══ */
+.lang-switcher{
+  display:flex;gap:2px;align-items:center;
+}
+.lang-btn{
+  padding:6px 12px;border-radius:3px;font-size:11px;font-weight:600;
+  font-family:'Rajdhani',sans-serif;letter-spacing:.5px;text-transform:uppercase;
+  border:1px solid var(--border2);color:var(--text2);background:transparent;
+  cursor:pointer;transition:.2s;
+}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-btn.active{
+  background:var(--accent);color:#000;border-color:var(--accent);font-weight:700;
+}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:0 2.5rem;
+  transition:background .3s,backdrop-filter .3s,border-color .3s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{
+  background:rgba(6,8,15,0.92);
+  backdrop-filter:blur(20px);
+  border-color:var(--border);
+}
+.nav-inner{max-width:1280px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:14px;cursor:pointer;text-decoration:none}
+.logo-mark{
+  width:44px;height:44px;
+  background:var(--accent);
+  clip-path:polygon(0 0,80% 0,100% 20%,100% 100%,20% 100%,0 80%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:#000;letter-spacing:-.5px;
+  flex-shrink:0;
+}
+.logo-text{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;letter-spacing:1px;color:var(--text)}
+.logo-sub{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500}
+.nav-links{display:flex;gap:2px}
+.nav-links button{
+  padding:8px 18px;border-radius:4px;font-size:13px;
+  font-family:'Inter',sans-serif;font-weight:500;
+  color:var(--text2);background:transparent;border:none;cursor:pointer;
+  letter-spacing:.5px;text-transform:uppercase;font-size:11px;
+  transition:.2s;
+}
+.nav-links button:hover,.nav-links button.active{color:var(--accent);background:var(--accent-dim)}
+.nav-right{display:flex;gap:10px;align-items:center}
+.btn{
+  padding:10px 22px;border-radius:4px;font-size:13px;font-weight:600;
+  cursor:pointer;border:none;transition:.2s;letter-spacing:.3px;
+  font-family:'Inter',sans-serif;
+}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-accent{
+  background:var(--accent);color:#000;font-weight:700;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+}
+.btn-accent:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-red{background:var(--red);color:#fff;font-weight:700}
+.btn-red:hover{opacity:.85}
+
+.btn-tiktok{
+  background:transparent;border:1px solid var(--border2);color:var(--text2);
+  padding:10px 16px;display:flex;align-items:center;gap:6px;
+}
+.btn-tiktok:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ═══ HERO ═══ */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:120px 2.5rem 80px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 50%,rgba(0,229,204,.06) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%,rgba(77,158,255,.04) 0%,transparent 60%);
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%);
+  opacity:.4;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-dim);border:1px solid rgba(0,229,204,.25);
+  color:var(--accent);font-size:11px;padding:6px 16px;
+  border-radius:2px;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:2rem;font-weight:600;width:fit-content;
+}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero-content{max-width:1280px;margin:auto;position:relative;z-index:1}
+.hero h1{
+  font-family:'Rajdhani',sans-serif;
+  font-size:clamp(4rem,9vw,8rem);
+  font-weight:700;line-height:.95;
+  letter-spacing:-2px;
+  margin-bottom:1.5rem;
+}
+.hero h1 .line1{display:block;color:var(--text)}
+.hero h1 .line2{display:block;color:var(--accent);position:relative}
+.hero h1 .line2::after{
+  content:attr(data-text);
+  position:absolute;left:2px;top:2px;
+  color:rgba(0,229,204,.2);
+  z-index:-1;
+}
+.hero-desc{
+  font-size:1.05rem;color:var(--text2);line-height:1.8;
+  max-width:480px;margin-bottom:2.5rem;font-weight:300;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:5rem}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  max-width:600px;gap:0;
+  border:1px solid var(--border);
+  border-radius:4px;overflow:hidden;
+}
+.hero-stat{
+  padding:20px 24px;text-align:center;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.hero-stat:last-child{border-right:none}
+.hero-stat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--accent);opacity:0;transition:.3s;
+}
+.hero-stat:hover::before{opacity:1}
+.stat-num{
+  font-family:'Rajdhani',sans-serif;font-size:2.2rem;font-weight:700;
+  color:var(--accent);line-height:1;
+}
+.stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px}
+
+/* ═══ PAGES ═══ */
+.page{display:none;max-width:1280px;margin:auto;padding:100px 2.5rem 4rem}
+.page.active{display:block}
+
+/* ═══ SECTION HEADER ═══ */
+.sec-header{margin-bottom:2.5rem}
+.sec-eyebrow{
+  font-size:10px;text-transform:uppercase;letter-spacing:3px;
+  color:var(--accent);font-weight:600;margin-bottom:.5rem;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-eyebrow::before{content:'';width:24px;height:1px;background:var(--accent)}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;letter-spacing:-1px;line-height:1}
+.sec-sub{font-size:14px;color:var(--text2);margin-top:.5rem;font-weight:300}
+
+/* ═══ TABS ═══ */
+.roster-tabs{
+  display:flex;gap:8px;margin-bottom:2rem;border-bottom:1px solid var(--border);
+}
+.roster-tab{
+  padding:10px 16px;border:none;background:transparent;color:var(--text2);
+  cursor:pointer;font-size:13px;text-transform:uppercase;letter-spacing:.5px;
+  font-weight:600;border-bottom:2px solid transparent;transition:.2s;
+  font-family:'Inter',sans-serif;
+}
+.roster-tab:hover{color:var(--accent)}
+.roster-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.roster-content{display:none}
+.roster-content.active{display:block}
+
+/* ═══ TAGS ═══ */
+.tag{display:inline-block;padding:3px 10px;border-radius:2px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.t-cyan{background:rgba(0,229,204,.15);color:var(--accent);border:1px solid rgba(0,229,204,.25)}
+.t-red{background:rgba(255,77,109,.15);color:var(--red);border:1px solid rgba(255,77,109,.25)}
+.t-blue{background:rgba(77,158,255,.15);color:var(--blue);border:1px solid rgba(77,158,255,.25)}
+.t-orange{background:rgba(255,154,60,.15);color:var(--orange);border:1px solid rgba(255,154,60,.25)}
+.t-green{background:rgba(0,229,204,.15);color:#00e59a;border:1px solid rgba(0,229,153,.25)}
+
+/* ═══ NEWS ═══ */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2px}
+.news-card{
+  background:var(--bg2);
+  position:relative;overflow:hidden;cursor:pointer;
+  transition:.25s;
+  border:1px solid var(--border);border-radius:2px;
+}
+.news-card:hover{border-color:var(--accent);background:var(--bg3)}
+.news-thumb{
+  position:relative;height:180px;overflow:hidden;
+}
+.news-thumb-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,229,204,.05),rgba(77,158,255,.05));
+}
+.news-thumb-icon{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:60px;opacity:.3;
+}
+.news-cat-badge{
+  position:absolute;top:12px;right:12px;z-index:1;
+}
+.news-sep{height:1px;background:var(--border)}
+.news-body{padding:16px}
+.news-title{
+  font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;
+  line-height:1.25;margin-bottom:8px;color:var(--text);
+}
+.news-excerpt{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:12px}
+.news-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--text3);letter-spacing:.5px;
+}
+.del-btn{
+  background:var(--red);color:#fff;border:none;border-radius:2px;
+  padding:2px 8px;cursor:pointer;font-size:12px;font-weight:700;transition:.2s;
+}
+.del-btn:hover{opacity:.7}
+
+/* ═══ PLAYERS ═══ */
+.players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.player-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:2px;
+  padding:16px;text-align:center;transition:.25s;
+}
+.player-card:hover{border-color:var(--accent);background:var(--bg3)}
+.player-number{
+  font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;
+  color:var(--accent);line-height:1;margin-bottom:8px;
+}
+.player-avatar{font-size:48px;margin:8px 0}
+.player-nick{
+  font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;
+  color:var(--text);margin-bottom:4px;
+}
+.player-name{font-size:12px;color:var(--text2);margin-bottom:8px}
+.player-role-wrap{display:flex;justify-content:center;margin-bottom:8px}
+.player-divider{height:1px;background:var(--border);margin:8px 0}
+
+/* ═══ MATCHES ═══ */
+.match-list{display:flex;flex-direction:column;gap:12px}
+.match-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:2px;
+  overflow:hidden;transition:.25s;
+}
+.match-card:hover{border-color:var(--accent);background:var(--bg3)}
+.match-result-bar{height:3px;background:var(--text3)}
+.match-result-bar.win{background:var(--green)}
+.match-result-bar.lose{background:var(--red)}
+.match-result-bar.upcoming{background:var(--blue)}
+.match-inner{padding:16px}
+.match-teams{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.match-team{display:flex;flex-direction:column;align-items:center;gap:6px}
+.match-team-logo{
+  width:40px;height:40px;
+  background:var(--bg3);border:1px solid var(--border);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--accent);
+}
+.match-team-logo.glk{background:var(--accent);color:#000}
+.match-team-name{font-size:12px;color:var(--text);font-weight:600}
+.match-vs{color:var(--text2);font-weight:700;font-size:12px;text-transform:uppercase}
+.match-score{
+  text-align:center;margin-bottom:12px;
+  font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;
+}
+.match-score span{display:inline-block}
+.match-score span.w{color:var(--green)}
+.match-score span.l{color:var(--red)}
+.match-score span.sep{color:var(--text2);margin:0 6px}
+.match-meta{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--text2)}
+.match-date-str{color:var(--text3)}
+.match-map-name{color:var(--accent);font-weight:600}
+
+/* ═══ ADMIN ═══ */
+#adminBar{
+  position:fixed;top:72px;left:0;right:0;z-index:400;
+  background:rgba(255,77,109,.08);border-bottom:1px solid var(--border);
+  padding:12px 2.5rem;display:none;
+}
+.admin-inner{max-width:1280px;margin:auto;display:flex;gap:10px;flex-wrap:wrap}
+.admin-btn{
+  padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;
+  background:var(--red);color:#fff;border:none;cursor:pointer;transition:.2s;
+  text-transform:uppercase;letter-spacing:.3px;
+}
+.admin-btn:hover{opacity:.85}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;
+  justify-content:center;z-index:1000;
+}
+.modal-overlay.show{display:flex}
+.modal{
+  background:var(--bg2);border:1px solid var(--border2);border-radius:4px;
+  padding:32px;max-width:440px;width:90%;
+}
+.modal-header{
+  font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;
+  margin-bottom:20px;color:var(--text);
+}
+.form-group{margin-bottom:16px}
+.form-group label{
+  display:block;font-size:12px;color:var(--text2);margin-bottom:6px;
+  text-transform:uppercase;letter-spacing:.5px;font-weight:600;
+}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);
+  border-radius:2px;color:var(--text);font-family:'Inter',sans-serif;font-size:13px;
+  transition:.2s;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  outline:none;border-color:var(--accent);background:var(--bg4);
+}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-actions{display:flex;gap:10px;margin-top:20px}
+.form-actions button{flex:1}
+.form-error,.form-success{
+  padding:10px 12px;border-radius:2px;font-size:12px;margin-bottom:16px;
+  display:none;
+}
+.form-error{background:rgba(255,77,109,.15);color:var(--red);border:1px solid var(--red);border-opacity:.25}
+.form-error.show{display:block}
+.form-success{background:rgba(0,229,204,.15);color:var(--accent);border:1px solid var(--accent);border-opacity:.25}
+.form-success.show{display:block}
+.modal-tabs{
+  display:flex;gap:2px;margin-bottom:20px;border-bottom:1px solid var(--border);
+}
+.modal-tab{
+  padding:10px 16px;border:none;background:transparent;color:var(--text2);
+  cursor:pointer;font-size:12px;text-transform:uppercase;letter-spacing:.5px;
+  font-weight:600;border-bottom:2px solid transparent;transition:.2s;
+}
+.modal-tab:hover,.modal-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.modal-content{display:none}
+.modal-content.active{display:block}
+
+/* ═══ AUTH ═══ */
+.user-pill{
+  display:flex;align-items:center;gap:8px;padding:6px 12px;
+  background:var(--accent-dim);border:1px solid rgba(0,229,204,.25);
+  border-radius:20px;
+}
+.user-ava{
+  width:24px;height:24px;background:var(--accent);color:#000;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;
+}
+.user-ava.admin{background:var(--red)}
+.user-nm{font-size:12px;color:var(--text);font-weight:600;display:flex;align-items:center;gap:6px}
+.user-nm span{
+  font-size:9px;background:var(--red);color:#fff;padding:2px 6px;
+  border-radius:2px;font-weight:700;text-transform:uppercase;
+}
+
+/* ═══ EMPTY STATE ═══ */
+.empty{
+  text-align:center;padding:60px 20px;
+}
+.empty-ico{font-size:48px;margin-bottom:12px}
+.empty-txt{color:var(--text2);font-size:14px;line-height:1.6}
+
+/* ═══ BLOCK SCREEN ═══ */
+#blockScreen{
+  display:none;position:fixed;inset:0;background:var(--bg);z-index:2000;
+  flex-direction:column;align-items:center;justify-content:center;
+}
+#blockScreen.show{display:flex}
+.block-content{
+  text-align:center;
+}
+.block-ico{font-size:120px;margin-bottom:30px}
+.block-title{
+  font-family:'Rajdhani',sans-serif;font-size:48px;font-weight:700;
+  color:var(--red);margin-bottom:20px;
+}
+.block-text{
+  font-size:18px;color:var(--text2);margin-bottom:40px;line-height:1.8;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  nav{padding:0 1.5rem}
+  .nav-inner{height:60px}
+  .logo-text{font-size:18px}
+  .hero{padding:100px 1.5rem 60px}
+  .hero h1{font-size:clamp(2.5rem,7vw,4rem)}
+  .page{padding:80px 1.5rem 2rem}
+  .news-grid{grid-template-columns:1fr}
+  .players-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .lang-switcher{gap:0}
+  .lang-btn{padding:4px 8px;font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<div id="blockScreen" class="block-content">
+  <div class="block-ico">🔒</div>
+  <div class="block-title">Сайт заблокований</div>
+  <div class="block-text">Адміністратор заблокував доступ до сайту.<br>Спробуйте пізніше.</div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">G</div>
+      <div>
+        <div class="logo-text">GLK</div>
+        <div class="logo-sub">Esport</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <button onclick="showPage('home')" class="active" data-i18n="nav_home">Домівка</button>
+      <button onclick="showPage('news')" data-i18n="nav_news">Новини</button>
+      <button onclick="showPage('players')" data-i18n="nav_players">Склад</button>
+      <button onclick="showPage('matches')" data-i18n="nav_matches">Матчі</button>
+    </div>
+    <div class="nav-right" id="navRight">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="changeLang('uk')" title="Українська">UK</button>
+        <button class="lang-btn" onclick="changeLang('ru')" title="Русский">RU</button>
+        <button class="lang-btn" onclick="changeLang('en')" title="English">EN</button>
+      </div>
+      <a href="https://www.tiktok.com/@cc_bananchik" target="_blank" class="btn btn-tiktok">
+        <span>🎵</span>
+        <span style="font-size:11px">TikTok</span>
+      </a>
+      <button class="btn btn-ghost" onclick="openAuth()" data-i18n="btn_login">Увійти</button>
+      <button class="btn btn-accent" onclick="openAuth()" data-i18n="btn_register">Реєстрація</button>
+    </div>
+  </div>
+</nav>
+
+<div id="adminBar" class="admin-bar">
+  <div class="admin-inner">
+    <button id="ap-news" class="admin-btn" onclick="showPage('admin-news')" style="display:none">📰 <span data-i18n="admin_news">Новини</span></button>
+    <button id="ap-players" class="admin-btn" onclick="showPage('admin-players')" style="display:none">👥 <span data-i18n="admin_players">Гравці</span></button>
+    <button id="ap-matches" class="admin-btn" onclick="showPage('admin-matches')" style="display:none">🎯 <span data-i18n="admin_matches">Матчі</span></button>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-tag"><span data-i18n="hero_tag">🔴 LIVE</span></div>
+      <h1>
+        <span class="line1" data-i18n="hero_line1">GLK</span>
+        <span class="line2" data-i18n="hero_line2">Esport</span>
+      </h1>
+      <p class="hero-desc" data-i18n="hero_desc">Найкраща команда CS2 в Україні. Змагаємось на вищому рівні, граємо на турнірах і прагнемо до перемоги.</p>
+      <div class="hero-actions">
+        <button class="btn btn-accent" onclick="showPage('matches')" data-i18n="btn_matches">Матчі</button>
+        <button class="btn btn-ghost" onclick="showPage('players')" data-i18n="btn_roster">Склад</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="stat-num" id="sP">0</div>
+          <div class="stat-label" data-i18n="stat_players">Гравців</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num" id="sN">0</div>
+          <div class="stat-label" data-i18n="stat_news">Новин</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num" id="sM">0</div>
+          <div class="stat-label" data-i18n="stat_matches">Матчів</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num" id="sW">0</div>
+          <div class="stat-label" data-i18n="stat_wins">Перемог</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS PAGE -->
+<div id="news" class="page">
+  <div class="sec-header">
+    <div class="sec-eyebrow" data-i18n="sec_news">НОВИНИ</div>
+    <h2 class="sec-title" data-i18n="news_title">Останні оновлення</h2>
+  </div>
+  <div id="newsGrid" class="news-grid"></div>
+</div>
+
+<!-- PLAYERS PAGE -->
+<div id="players" class="page">
+  <div class="sec-header">
+    <div class="sec-eyebrow" data-i18n="sec_players">СКЛАД</div>
+    <h2 class="sec-title" data-i18n="players_title">Наша команда</h2>
+  </div>
+  <div class="roster-tabs">
+    <button class="roster-tab active" onclick="switchRoster('main')">Основний склад</button>
+    <button class="roster-tab" onclick="switchRoster('second')">Другий склад</button>
+    <button class="roster-tab" onclick="switchRoster('academy')">Академія</button>
+  </div>
+  <div id="main" class="roster-content active">
+    <div id="playersGridMain" class="players-grid"></div>
+  </div>
+  <div id="second" class="roster-content">
+    <div id="playersGridSecond" class="players-grid"></div>
+  </div>
+  <div id="academy" class="roster-content">
+    <div id="playersGridAcademy" class="players-grid"></div>
+  </div>
+</div>
+
+<!-- MATCHES PAGE -->
+<div id="matches" class="page">
+  <div class="sec-header">
+    <div class="sec-eyebrow" data-i18n="sec_matches">МАТЧІ</div>
+    <h2 class="sec-title" data-i18n="matches_title">Результати</h2>
+  </div>
+  <div id="matchList" class="match-list"></div>
+</div>
+
+<!-- ADMIN PAGES -->
+<div id="admin-news" class="page">
+  <div class="sec-header">
+    <h2 class="sec-title" data-i18n="admin_manage_news">Управління новинами</h2>
+  </div>
+  <div class="form-group" style="max-width:500px">
+    <label data-i18n="form_title">Заголовок</label>
+    <input type="text" id="nTitle" placeholder="">
+  </div>
+  <div class="form-group" style="max-width:500px">
+    <label data-i18n="form_text">Текст</label>
+    <textarea id="nText"></textarea>
+  </div>
+  <div class="form-group" style="max-width:500px">
+    <label data-i18n="form_category">Категорія</label>
+    <select id="nCat">
+      <option value="announcement" data-i18n="cat_announcement">Оголошення</option>
+      <option value="match" data-i18n="cat_match">Матч</option>
+      <option value="roster" data-i18n="cat_roster">Склад</option>
+      <option value="event" data-i18n="cat_event">Подія</option>
+    </select>
+  </div>
+  <button class="btn btn-accent" onclick="addNews()" style="margin-bottom:2rem" data-i18n="btn_publish">Опублікувати</button>
+  <div id="newsGridAdmin" class="news-grid"></div>
+</div>
+
+<div id="admin-players" class="page">
+  <div class="sec-header">
+    <h2 class="sec-title" data-i18n="admin_manage_players">Управління гравцями</h2>
+  </div>
+  <div style="max-width:500px">
+    <div class="form-group">
+      <label data-i18n="form_nickname">Нік</label>
+      <input type="text" id="pNick" placeholder="">
+    </div>
+    <div class="form-group">
+      <label data-i18n="form_name">Ім'я</label>
+      <input type="text" id="pName" placeholder="">
+    </div>
+    <div class="form-group">
+      <label data-i18n="form_role">Роль</label>
+      <select id="pRole">
+        <option value="IGL">IGL</option>
+        <option value="AWPer">AWPer</option>
+        <option value="Entry Fragger">Entry Fragger</option>
+        <option value="Rifler">Rifler</option>
+        <option value="Support">Support</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Команда</label>
+      <select id="pTeam">
+        <option value="main">Основний склад</option>
+        <option value="second">Другий склад</option>
+        <option value="academy">Академія</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label data-i18n="form_flag">Прапор</label>
+      <input type="text" id="pFlag" placeholder="🇺🇦">
+    </div>
+    <button class="btn btn-accent" onclick="addPlayer()" data-i18n="btn_add">Додати</button>
+  </div>
+  <div style="margin-top:2rem">
+    <div style="margin-bottom:2rem">
+      <h3 style="margin-bottom:1rem;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:16px">Основний склад</h3>
+      <div id="playersGridAdminMain" class="players-grid"></div>
+    </div>
+    <div style="margin-bottom:2rem">
+      <h3 style="margin-bottom:1rem;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:16px">Другий склад</h3>
+      <div id="playersGridAdminSecond" class="players-grid"></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:1rem;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:16px">Академія</h3>
+      <div id="playersGridAdminAcademy" class="players-grid"></div>
+    </div>
+  </div>
+</div>
+
+<div id="admin-matches" class="page">
+  <div class="sec-header">
+    <h2 class="sec-title" data-i18n="admin_manage_matches">Управління матчами</h2>
+  </div>
+  <div style="max-width:500px">
+    <div class="form-group">
+      <label data-i18n="form_opponent">Суперник</label>
+      <input type="text" id="mOpp" placeholder="">
+    </div>
+    <div class="form-group">
+      <label data-i18n="form_map">Карта</label>
+      <input type="text" id="mMap" placeholder="">
+    </div>
+    <div class="form-group">
+      <label data-i18n="form_score">Рахунок</label>
+      <input type="text" id="mScore" placeholder="16:14">
+    </div>
+    <div class="form-group">
+      <label data-i18n="form_result">Результат</label>
+      <select id="mRes">
+        <option value="upcoming" data-i18n="res_upcoming">Майбутній</option>
+        <option value="win" data-i18n="res_win">Перемога</option>
+        <option value="lose" data-i18n="res_lose">Поразка</option>
+      </select>
+    </div>
+    <button class="btn btn-accent" onclick="addMatch()" data-i18n="btn_add">Додати</button>
+  </div>
+  <div id="matchListAdmin" class="match-list" style="margin-top:2rem"></div>
+</div>
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab('login')" data-i18n="tab_login">Вхід</button>
+      <button class="modal-tab" onclick="switchTab('register')" data-i18n="tab_register">Реєстрація</button>
+    </div>
+
+    <!-- LOGIN TAB -->
+    <div id="login" class="modal-content active">
+      <div class="modal-header" data-i18n="modal_login">Вхід в акаунт</div>
+      <div id="loginErr" class="form-error"></div>
+      <div class="form-group">
+        <label data-i18n="form_username">Логін</label>
+        <input type="text" id="lgUser" placeholder="">
+      </div>
+      <div class="form-group">
+        <label data-i18n="form_password">Пароль</label>
+        <input type="password" id="lgPass" placeholder="">
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-accent" onclick="doLogin()" data-i18n="btn_login">Увійти</button>
+        <button class="btn btn-ghost" onclick="closeAuth()" data-i18n="btn_cancel">Скасувати</button>
+      </div>
+    </div>
+
+    <!-- REGISTER TAB -->
+    <div id="register" class="modal-content">
+      <div class="modal-header" data-i18n="modal_register">Створення акаунту</div>
+      <div id="regErr" class="form-error"></div>
+      <div id="regOk" class="form-success"></div>
+      <div class="form-group">
+        <label data-i18n="form_username">Логін</label>
+        <input type="text" id="rgUser" placeholder="">
+      </div>
+      <div class="form-group">
+        <label data-i18n="form_email">Email</label>
+        <input type="email" id="rgEmail" placeholder="">
+      </div>
+      <div class="form-group">
+        <label data-i18n="form_password">Пароль</label>
+        <input type="password" id="rgPass" placeholder="">
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-accent" onclick="doReg()" data-i18n="btn_register">Реєстрація</button>
+        <button class="btn btn-ghost" onclick="closeAuth()" data-i18n="btn_cancel">Скасувати</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══ TRANSLATION SYSTEM ═══
+const translations={
+  uk:{
+    nav_home:'Домівка',nav_news:'Новини',nav_players:'Склад',nav_matches:'Матчі',
+    btn_login:'Увійти',btn_register:'Реєстрація',btn_cancel:'Скасувати',btn_publish:'Опублікувати',
+    btn_matches:'Матчі',btn_roster:'Склад',btn_add:'Додати',
+    hero_tag:'🔴 LIVE',hero_line1:'GLK',hero_line2:'Esport',
+    hero_desc:'Найкраща команда CS2 в Україні. Змагаємось на вищому рівні, граємо на турнірах і прагнемо до перемоги.',
+    stat_players:'Гравців',stat_news:'Новин',stat_matches:'Матчів',stat_wins:'Перемог',
+    sec_news:'НОВИНИ',sec_players:'СКЛАД',sec_matches:'МАТЧІ',
+    news_title:'Останні оновлення',players_title:'Наша команда',matches_title:'Результати',
+    admin_news:'Новини',admin_players:'Гравці',admin_matches:'Матчі',
+    admin_manage_news:'Управління новинами',admin_manage_players:'Управління гравцями',admin_manage_matches:'Управління матчами',
+    form_title:'Заголовок',form_text:'Текст',form_category:'Категорія',
+    form_nickname:'Нік',form_name:'Ім\'я',form_role:'Роль',form_flag:'Прапор',
+    form_opponent:'Суперник',form_map:'Карта',form_score:'Рахунок',form_result:'Результат',
+    form_username:'Логін',form_password:'Пароль',form_email:'Email',
+    cat_announcement:'Оголошення',cat_match:'Матч',cat_roster:'Склад',cat_event:'Подія',
+    res_upcoming:'Майбутній',res_win:'Перемога',res_lose:'Поразка',
+    tab_login:'Вхід',tab_register:'Реєстрація',
+    modal_login:'Вхід в акаунт',modal_register:'Створення акаунту',
+    empty_news:'Новин поки немає.<br>Адміністратор може опублікувати першу.',
+    empty_players:'Ростер порожній.<br>Адміністратор може додати гравців.',
+    empty_matches:'Матчів поки немає.<br>Адміністратор може додати результати.',
+  },
+  ru:{
+    nav_home:'Главная',nav_news:'Новости',nav_players:'Состав',nav_matches:'Матчи',
+    btn_login:'Вход',btn_register:'Регистрация',btn_cancel:'Отмена',btn_publish:'Опубликовать',
+    btn_matches:'Матчи',btn_roster:'Состав',btn_add:'Добавить',
+    hero_tag:'🔴 LIVE',hero_line1:'GLK',hero_line2:'Esport',
+    hero_desc:'Лучшая команда CS2 в Украине. Мы участвуем на высочайшем уровне, играем в турнирах и стремимся к победе.',
+    stat_players:'Игроков',stat_news:'Новостей',stat_matches:'Матчей',stat_wins:'Побед',
+    sec_news:'НОВОСТИ',sec_players:'СОСТАВ',sec_matches:'МАТЧИ',
+    news_title:'Последние обновления',players_title:'Наша команда',matches_title:'Результаты',
+    admin_news:'Новости',admin_players:'Игроки',admin_matches:'Матчи',
+    admin_manage_news:'Управление новостями',admin_manage_players:'Управление игроками',admin_manage_matches:'Управление матчами',
+    form_title:'Заголовок',form_text:'Текст',form_category:'Категория',
+    form_nickname:'Ник',form_name:'Имя',form_role:'Роль',form_flag:'Флаг',
+    form_opponent:'Противник',form_map:'Карта',form_score:'Счет',form_result:'Результат',
+    form_username:'Логин',form_password:'Пароль',form_email:'Email',
+    cat_announcement:'Объявление',cat_match:'Матч',cat_roster:'Состав',cat_event:'Событие',
+    res_upcoming:'Предстоящий',res_win:'Победа',res_lose:'Поражение',
+    tab_login:'Вход',tab_register:'Регистрация',
+    modal_login:'Вход в аккаунт',modal_register:'Создание аккаунта',
+    empty_news:'Новостей пока нет.<br>Администратор может опубликовать первую.',
+    empty_players:'Состав пуст.<br>Администратор может добавить игроков.',
+    empty_matches:'Матчей пока нет.<br>Администратор может добавить результаты.',
+  },
+  en:{
+    nav_home:'Home',nav_news:'News',nav_players:'Roster',nav_matches:'Matches',
+    btn_login:'Login',btn_register:'Register',btn_cancel:'Cancel',btn_publish:'Publish',
+    btn_matches:'Matches',btn_roster:'Roster',btn_add:'Add',
+    hero_tag:'🔴 LIVE',hero_line1:'GLK',hero_line2:'Esport',
+    hero_desc:'Best CS2 team in Ukraine. We compete at the highest level, play in tournaments and strive for victory.',
+    stat_players:'Players',stat_news:'News',stat_matches:'Matches',stat_wins:'Wins',
+    sec_news:'NEWS',sec_players:'ROSTER',sec_matches:'MATCHES',
+    news_title:'Latest updates',players_title:'Our team',matches_title:'Results',
+    admin_news:'News',admin_players:'Players',admin_matches:'Matches',
+    admin_manage_news:'Manage news',admin_manage_players:'Manage players',admin_manage_matches:'Manage matches',
+    form_title:'Title',form_text:'Text',form_category:'Category',
+    form_nickname:'Nickname',form_name:'Name',form_role:'Role',form_flag:'Flag',
+    form_opponent:'Opponent',form_map:'Map',form_score:'Score',form_result:'Result',
+    form_username:'Username',form_password:'Password',form_email:'Email',
+    cat_announcement:'Announcement',cat_match:'Match',cat_roster:'Roster',cat_event:'Event',
+    res_upcoming:'Upcoming',res_win:'Win',res_lose:'Loss',
+    tab_login:'Login',tab_register:'Register',
+    modal_login:'Account login',modal_register:'Account creation',
+    empty_news:'No news yet.<br>Administrator can publish the first one.',
+    empty_players:'Empty roster.<br>Administrator can add players.',
+    empty_matches:'No matches yet.<br>Administrator can add results.',
+  }
+};
+
+let currentLang='uk';
+
+function changeLang(lang){
+  currentLang=lang;
+  document.documentElement.lang=lang;
+  document.querySelectorAll('.lang-btn').forEach(btn=>btn.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(translations[lang][key]){
+      el.textContent=translations[lang][key];
+    }
+  });
+  localStorage.setItem('lang',lang);
+  updateAllContent();
+}
+
+// ═══ DATA ═══
+let users=[];
+let news=[];let players=[];let matches=[];
+let user=null;let isAdm=false;
+let siteBlocked=false;
+
+// ═══ PASSWORDS ═══
+const ADMIN_PASS='ADM2026';
+const BLOCK_PASS='SeWa123';
+
+function checkBlockStatus(){
+  const blocked=localStorage.getItem('glkBlocked')==='true';
+  if(blocked){
+    document.getElementById('blockScreen').classList.add('show');
+    siteBlocked=true;
+  }
+}
+
+function sv(){localStorage.setItem('glkData',JSON.stringify({users,news,players,matches}))}
+function ld(){
+  const d=JSON.parse(localStorage.getItem('glkData')||'{}');
+  if(d.users){users=d.users;news=d.news||[];players=d.players||[];matches=d.matches||[]}
+}
+
+// ═══ UI ═══
+function showPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById(p).classList.add('active');
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  if(p==='home')document.querySelectorAll('.nav-links button')[0].classList.add('active');
+  if(p==='news')document.querySelectorAll('.nav-links button')[1].classList.add('active');
+  if(p==='players'){document.querySelectorAll('.nav-links button')[2].classList.add('active');switchRoster('main')}
+  if(p==='matches')document.querySelectorAll('.nav-links button')[3].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function switchRoster(team){
+  document.querySelectorAll('.roster-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.roster-content').forEach(c=>c.classList.remove('active'));
+  document.querySelector(`button[onclick="switchRoster('${team}')"]`).classList.add('active');
+  document.getElementById(team).classList.add('active');
+}
+
+function openAuth(){document.getElementById('authModal').classList.add('show')}
+function closeAuth(){document.getElementById('authModal').classList.remove('show')}
+function switchTab(t){
+  document.querySelectorAll('.modal-tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.modal-content').forEach(x=>x.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(t).classList.add('active');
+}
+
+function showE(id,msg){const e=document.getElementById(id);e.textContent=msg;e.classList.add('show')}
+function hideE(id){document.getElementById(id).classList.remove('show')}
+
+// ═══ AUTH ═══
+function doLogin(){
+  if(siteBlocked){
+    showE('loginErr','Сайт заблокований адміністратором');
+    return;
+  }
+  hideE('loginErr');
+  const u=document.getElementById('lgUser').value.trim();
+  const p=document.getElementById('lgPass').value;
+  if(!u||!p){showE('loginErr',currentLang==='uk'?'Заповніть логін і пароль':currentLang==='ru'?'Заполните логин и пароль':'Fill in username and password');return}
+  
+  // Перевіряю чи це пароль для блокування сайту
+  if(p===BLOCK_PASS){
+    siteBlocked=true;
+    localStorage.setItem('glkBlocked','true');
+    document.getElementById('blockScreen').classList.add('show');
+    closeAuth();
+    return;
+  }
+  
+  // Перевіряю адміністраторський пароль (будь-який логін)
+  if(p===ADMIN_PASS){
+    user=u||'admin';
+    isAdm=true;
+    onLogin();
+  } else {
+    showE('loginErr',currentLang==='uk'?'Невірний пароль':currentLang==='ru'?'Неверный пароль':'Invalid password');
+  }
+}
+function doReg(){
+  hideE('regErr');document.getElementById('regOk').classList.remove('show');
+  const u=document.getElementById('rgUser').value.trim();
+  const e=document.getElementById('rgEmail').value.trim();
+  const p=document.getElementById('rgPass').value;
+  if(!u||!e||!p){showE('regErr',currentLang==='uk'?'Заповніть всі поля':currentLang==='ru'?'Заполните все поля':'Fill all fields');return}
+  if(p.length<4){showE('regErr',currentLang==='uk'?'Пароль — мінімум 4 символи':currentLang==='ru'?'Пароль - минимум 4 символа':'Password minimum 4 characters');return}
+  if(users.find(x=>x.login===u)){showE('regErr',currentLang==='uk'?'Цей логін вже зайнятий':currentLang==='ru'?'Этот логин уже занят':'Username already taken');return}
+  users.push({login:u,email:e,pass:p});sv();
+  const succMsg=currentLang==='uk'?'Акаунт створено! Тепер увійдіть 🎉':currentLang==='ru'?'Аккаунт создан! Теперь войдите 🎉':'Account created! Now login 🎉';
+  document.getElementById('regOk').textContent=succMsg;document.getElementById('regOk').classList.add('show');
+  ['rgUser','rgEmail','rgPass'].forEach(id=>document.getElementById(id).value='');
+  setTimeout(()=>switchTab('login'),1500);
+}
+function onLogin(){
+  closeAuth();
+  const nr=document.getElementById('navRight');
+  nr.innerHTML=`<div class="user-pill"><div class="user-ava${isAdm?' admin':''}">${user[0].toUpperCase()}</div><span class="user-nm">${esc(user)}${isAdm?'<span>ADM</span>':''}</span></div><button class="btn btn-red" onclick="doLogout()" style="font-size:12px;padding:8px 14px">${translations[currentLang].btn_login==='Увійти'?'Вийти':translations[currentLang].btn_login==='Вход'?'Выход':'Logout'}</button>`;
+  if(isAdm){
+    document.getElementById('adminBar').style.display='block';
+    ['ap-news','ap-players','ap-matches'].forEach(id=>document.getElementById(id).style.display='block');
+    document.getElementById('adminBar').style.top=(document.querySelector('nav').offsetHeight)+'px';
+  }
+  updStats();
+}
+function doLogout(){
+  user=null;isAdm=false;
+  siteBlocked=false;
+  localStorage.setItem('glkBlocked','false');
+  document.getElementById('blockScreen').classList.remove('show');
+  document.getElementById('adminBar').style.display='none';
+  ['ap-news','ap-players','ap-matches'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('navRight').innerHTML=`<div class="lang-switcher">
+    <button class="lang-btn${currentLang==='uk'?' active':''}" onclick="changeLang('uk')" title="Українська">UK</button>
+    <button class="lang-btn${currentLang==='ru'?' active':''}" onclick="changeLang('ru')" title="Русский">RU</button>
+    <button class="lang-btn${currentLang==='en'?' active':''}" onclick="changeLang('en')" title="English">EN</button>
+  </div><a href="https://www.tiktok.com/@cc_bananchik" target="_blank" class="btn btn-tiktok"><span>🎵</span><span style="font-size:11px">TikTok</span></a><button class="btn btn-ghost" onclick="openAuth()" data-i18n="btn_login">${translations[currentLang].btn_login}</button><button class="btn btn-accent" onclick="openAuth()" data-i18n="btn_register">${translations[currentLang].btn_register}</button>`;
+  renderNews();renderPlayers();renderMatches();updStats();
+}
+
+function updStats(){
+  document.getElementById('sP').textContent=players.length;
+  document.getElementById('sN').textContent=news.length;
+  document.getElementById('sM').textContent=matches.length;
+  document.getElementById('sW').textContent=matches.filter(m=>m.r==='win').length;
+}
+
+// HELPERS
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function today(){return new Date().toLocaleDateString(currentLang==='uk'?'uk-UA':currentLang==='ru'?'ru-RU':'en-US')}
+const catCfg={
+  announcement:{l:'announcement',c:'t-blue'},
+  match:{l:'match',c:'t-orange'},
+  roster:{l:'roster',c:'t-cyan'},
+  event:{l:'event',c:'t-green'}
+};
+const roleCfg={
+  IGL:'t-orange',AWPer:'t-blue','Entry Fragger':'t-red',
+  Rifler:'t-cyan',Support:'t-green',Lurker:'t-orange',Coach:'t-green'
+};
+
+// NEWS
+function addNews(){
+  const t=document.getElementById('nTitle').value.trim();
+  const tx=document.getElementById('nText').value.trim();
+  const cat=document.getElementById('nCat').value;
+  if(!t||!tx){alert(translations[currentLang].form_title+' '+translations[currentLang].form_text);return}
+  news.unshift({id:Date.now(),t,tx,cat,date:today(),by:user});
+  sv();renderNews();updStats();
+  document.getElementById('nTitle').value='';
+  document.getElementById('nText').value='';
+}
+function delNews(id){news=news.filter(n=>n.id!==id);sv();renderNews();updStats()}
+function renderNews(){
+  const g=document.getElementById('newsGrid');
+  const ga=document.getElementById('newsGridAdmin');
+  const empty=`<div class="empty" style="grid-column:1/-1"><div class="empty-ico">📭</div><div class="empty-txt">${translations[currentLang].empty_news}</div></div>`;
+  if(!news.length){
+    if(g)g.innerHTML=empty;
+    if(ga)ga.innerHTML=empty;
+    return;
+  }
+  const html=news.map(n=>{
+    const c=catCfg[n.cat]||catCfg.announcement;
+    const catLabel=translations[currentLang]['cat_'+c.l];
+    const ex=esc(n.tx).substring(0,110)+(n.tx.length>110?'...':'');
+    return`<div class="news-card">
+      <div class="news-thumb">
+        <div class="news-thumb-bg"></div>
+        <div class="news-thumb-icon">🎮</div>
+        <div class="news-cat-badge"><span class="tag ${c.c}">${catLabel}</span></div>
+      </div>
+      <div class="news-sep"></div>
+      <div class="news-body">
+        <div class="news-title">${esc(n.t)}</div>
+        <div class="news-excerpt">${ex}</div>
+        <div class="news-footer">
+          <span>${n.date}</span>
+          <span style="display:flex;align-items:center;gap:8px">by ${esc(n.by)}${isAdm?`<button class="del-btn" onclick="delNews(${n.id})" title="Видалити">✕</button>`:''}
+          </span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  if(g)g.innerHTML=html;
+  if(ga)ga.innerHTML=html;
+}
+
+// PLAYERS
+function addPlayer(){
+  const nick=document.getElementById('pNick').value.trim();
+  const name=document.getElementById('pName').value.trim();
+  const role=document.getElementById('pRole').value;
+  const team=document.getElementById('pTeam').value;
+  const flag=document.getElementById('pFlag').value||'🎮';
+  if(!nick){alert(translations[currentLang].form_nickname);return}
+  players.push({id:Date.now(),nick,name,role,team,flag,num:players.filter(p=>p.team===team).length+1});
+  sv();renderPlayers();updStats();
+  ['pNick','pName','pFlag'].forEach(i=>document.getElementById(i).value='');
+}
+function delPlayer(id){players=players.filter(p=>p.id!==id);sv();renderPlayers();updStats()}
+function renderPlayers(){
+  const main=players.filter(p=>p.team==='main');
+  const second=players.filter(p=>p.team==='second');
+  const academy=players.filter(p=>p.team==='academy');
+  
+  const renderTeam=(team,containerId)=>{
+    const c=document.getElementById(containerId);
+    if(!c)return;
+    const empty=`<div class="empty" style="grid-column:1/-1"><div class="empty-ico">👤</div><div class="empty-txt">${translations[currentLang].empty_players}</div></div>`;
+    if(!team.length){c.innerHTML=empty;return}
+    c.innerHTML=team.map((p,i)=>`
+      <div class="player-card">
+        <div class="player-number">${String(i+1).padStart(2,'0')}</div>
+        <div class="player-avatar">${esc(p.flag)}</div>
+        <div class="player-nick">${esc(p.nick)}</div>
+        <div class="player-name">${esc(p.name)||'—'}</div>
+        <div class="player-role-wrap"><span class="tag ${roleCfg[p.role]||'t-cyan'}">${esc(p.role)}</span></div>
+        <div class="player-divider"></div>
+        ${isAdm?`<div style="margin-top:12px;display:flex;justify-content:center"><button class="del-btn" onclick="delPlayer(${p.id})" title="Видалити">✕</button></div>`:''}
+      </div>`).join('');
+  };
+  
+  renderTeam(main,'playersGridMain');
+  renderTeam(second,'playersGridSecond');
+  renderTeam(academy,'playersGridAcademy');
+  
+  renderTeam(main,'playersGridAdminMain');
+  renderTeam(second,'playersGridAdminSecond');
+  renderTeam(academy,'playersGridAdminAcademy');
+}
+
+// MATCHES
+function addMatch(){
+  const opp=document.getElementById('mOpp').value.trim();
+  const map=document.getElementById('mMap').value.trim();
+  const sc=document.getElementById('mScore').value.trim();
+  const r=document.getElementById('mRes').value;
+  if(!opp){alert(translations[currentLang].form_opponent);return}
+  matches.unshift({id:Date.now(),opp,map,sc,r,date:today()});
+  sv();renderMatches();updStats();
+  ['mOpp','mMap','mScore'].forEach(i=>document.getElementById(i).value='');
+}
+function delMatch(id){matches=matches.filter(m=>m.id!==id);sv();renderMatches();updStats()}
+const resMeta={
+  win:{l:'res_win',c:'t-green',bar:'win'},
+  lose:{l:'res_lose',c:'t-red',bar:'lose'},
+  upcoming:{l:'res_upcoming',c:'t-blue',bar:'upcoming'}
+};
+function renderMatches(){
+  const g=document.getElementById('matchList');
+  const ga=document.getElementById('matchListAdmin');
+  const empty=`<div class="empty"><div class="empty-ico">🎯</div><div class="empty-txt">${translations[currentLang].empty_matches}</div></div>`;
+  if(!matches.length){
+    if(g)g.innerHTML=empty;
+    if(ga)ga.innerHTML=empty;
+    return;
+  }
+  const html=matches.map(m=>{
+    const rm=resMeta[m.r]||resMeta.upcoming;
+    const resLabel=translations[currentLang][rm.l];
+    const parts=(m.sc||'').split(':');
+    let scoreHtml='—';
+    if(parts.length===2){
+      const glkWin=m.r==='win';
+      scoreHtml=`<span class="${glkWin?'w':'l'}">${esc(parts[0])}</span><span class="sep">:</span><span class="${glkWin?'l':'w'}">${esc(parts[1])}</span>`;
+    }
+    return`<div class="match-card">
+      <div class="match-result-bar ${rm.bar}"></div>
+      <div class="match-inner">
+        <div class="match-teams">
+          <div class="match-team">
+            <div class="match-team-logo glk">GLK</div>
+            <span class="match-team-name">GLK Esport</span>
+          </div>
+          <div class="match-vs">VS</div>
+          <div class="match-team">
+            <div class="match-team-logo">${esc((m.opp[0]||'?').toUpperCase())}</div>
+            <span class="match-team-name">${esc(m.opp)}</span>
+          </div>
+        </div>
+        <div class="match-score">${scoreHtml}</div>
+        <div class="match-meta">
+          <div><span class="tag ${rm.c}">${resLabel}</span></div>
+          <div class="match-date-str" style="margin-top:6px">${m.date}</div>
+          ${m.map?`<div class="match-map-name">${esc(m.map)}</div>`:''}
+          ${isAdm?`<div style="margin-top:6px"><button class="del-btn" onclick="delMatch(${m.id})" title="Видалити">✕</button></div>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  if(g)g.innerHTML=html;
+  if(ga)ga.innerHTML=html;
+}
+
+function updateAllContent(){
+  renderNews();renderPlayers();renderMatches();
+}
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').classList.toggle('scrolled',window.scrollY>0);
+});
+
+// INIT
+ld();
+checkBlockStatus();
+if(localStorage.getItem('lang')){
+  currentLang=localStorage.getItem('lang');
+  document.documentElement.lang=currentLang;
+  document.querySelectorAll('.lang-btn').forEach((btn,i)=>{
+    btn.classList.toggle('active',btn.textContent===currentLang.toUpperCase()||(currentLang==='uk'&&i===0)||(currentLang==='ru'&&i===1)||(currentLang==='en'&&i===2));
+  });
+}
+changeLang(currentLang);
+renderNews();renderPlayers();renderMatches();updStats();
+</script>
+</body>
+</html>
